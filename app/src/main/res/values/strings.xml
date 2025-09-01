@@ -1,14 +1,15 @@
 <resources>
-    <string name="app_name">Organizador</string>
+    <string name="app_name">OrganizApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_a_teacher_item">Add a teacher item</string>
+    <string name="add_a_homework_item">Add a homework item</string>
     <string name="name">Nombre</string>
     <string name="cubicle">Cubículo</string>
     <string name="contact">Contacto</string>
     <string name="email">Correo</string>
     <string name="description">Descripción</string>
-    <string name="add_teacher">Agregar Nuevo Profesor</string>
+    <string name="add_teacher">Agregar Nuevo Maestro</string>
     <string name="edit_schedule">Personalizar celda</string>
     <string name="cancel">Cancelar</string>
     <string name="save">Guardar</string>
@@ -20,4 +21,6 @@
     <string name="sabado">Sábado</string>
     <string name="domingo">Domingo</string>
     <string name="activity">Actividad</string>
+    <string name="teacher_information">Información del Maestro</string>
+    <string name="homework_information">Información de la tarea</string>
 </resources>

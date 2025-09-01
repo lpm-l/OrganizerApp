@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="#fff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,14 +26,15 @@
             app:startIconDrawable="@drawable/ic_description"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:counterEnabled="true"
-            app:counterMaxLength="25"
-            android:layout_marginBottom="8dp">
+            app:counterMaxLength="24"
+            android:layout_marginBottom="0dp">
 
             <EditText
                 android:id="@+id/editTextActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/activity"
+                android:maxLength="24"
                 android:inputType="text"
                 android:autofillHints="" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -42,13 +44,14 @@
             android:layout_height="wrap_content"
             android:text="Color de actividad"
             android:textSize="16sp"
-            android:layout_marginTop="16dp" />
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
 
         <View
             android:id="@+id/viewColorPreview"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#FF0000"
+            android:background="#71c6c1"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp" />
 
@@ -57,7 +60,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:backgroundTint="#BCD8C1"
+            android:textColor="#000"
             android:text="Elegir color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp">
+
+            <Button
+                android:id="@+id/btnClose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cerrar"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#222E50"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/btnAccept"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Guardar"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#222E50"
+                android:textColor="@color/white"/>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

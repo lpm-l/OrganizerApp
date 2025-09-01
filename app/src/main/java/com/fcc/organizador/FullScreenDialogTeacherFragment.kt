@@ -39,6 +39,9 @@ class FullScreenDialogTeacherFragment: DialogFragment() {
 
         if (teacherViewModel.getEditing()){ //If the dialog was called by the edit swipe option
             fillOutTeacherInformation()
+            binding.dialogTitle.text = "Editar Maestro"
+        }else{
+            binding.dialogTitle.text = "Agregar Nuevo Maestro"
         }
 
         binding.btnSave.setOnClickListener {
@@ -94,15 +97,35 @@ class FullScreenDialogTeacherFragment: DialogFragment() {
 
     private fun validateInputs(name: String, cubicle: String, email: String, description: String, editing: Boolean): Boolean {
         if (!editing && db.teacherNameExists(name)){
-            Toast.makeText(context, "Ya hay un profesor con ese nombre, registra otro", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Ya hay un profesor con ese nombre, registra otro", Toast.LENGTH_SHORT).show()
+            binding.nameLayout.error = "Ya hay un maestro con ese nombre"
             return false
         }
+        var validated = true
 
-        if ((name != "") && (cubicle != "") && (email != "")){
-            return true
+        if(name == ""){
+            binding.nameLayout.error = "Ingresa un nombre"
+            validated = false
+        }else{
+            binding.nameLayout.error = null
         }
-        Toast.makeText(context, "Completa todos los campos", Toast.LENGTH_SHORT).show()
-        return false
+
+        if(cubicle == ""){
+            binding.cubicleLayout.error = "Ingresa el cubículo"
+            validated = false
+        }else{
+            binding.cubicleLayout.error = null
+        }
+
+        if(email == ""){
+            binding.emailLayout.error = "Ingresa el email"
+            validated = false
+        }else{
+            binding.emailLayout.error = null
+        }
+
+        //Toast.makeText(context, "Completa todos los campos", Toast.LENGTH_SHORT).show()
+        return validated
 
 
     }

@@ -11,7 +11,8 @@
     <color name="palette_blue2">#00a9ff</color>
     <color name="palette_blue3">#00d6db</color>
     <color name="palette_green">#68f9a7</color>
-    <color name="palette_yellow">#f9ffa3</color>
-
+    <color name="palette_yellow">#E9D985</color>
+    <color name="palette_newBlue1">#007991</color>
+    <color name="palette_newGreen1">#439A86</color>
 
 </resources>

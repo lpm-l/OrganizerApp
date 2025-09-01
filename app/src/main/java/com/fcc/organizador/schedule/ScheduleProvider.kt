@@ -6,9 +6,9 @@ class ScheduleProvider {
 
     companion object{
         val scheduleList = listOf(
-            Schedule("Horario",  Color.parseColor("#68f9a7"), 0), Schedule("Lunes", Color.YELLOW, 1), Schedule("Martes", Color.parseColor("#f9ffa3"), 2),
-            Schedule("Miércoles", Color.parseColor("#F44336"), 3), Schedule("Jueves", Color.parseColor("#FFEB3B"), 4), Schedule("Viernes", Color.WHITE, 5),
-            Schedule("Sábado", Color.parseColor("#4CAF50"), 6)
+            Schedule("Horario",  Color.parseColor("#C42021"), 0), Schedule("Lunes", Color.parseColor("#007991"), 1), Schedule("Martes", Color.parseColor("#439A86"), 2),
+            Schedule("Miércoles", Color.parseColor("#9E1946"), 3), Schedule("Jueves", Color.parseColor("#E9D985"), 4), Schedule("Viernes", Color.parseColor("#EDAFB8"), 5),
+            Schedule("Sábado", Color.parseColor("#BCD8C1"), 6)
         )
     }
 }

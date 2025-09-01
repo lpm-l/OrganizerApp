@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TeachersFragment" >
+    tools:context=".TeachersFragment"
+    android:background="#fff">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerTeachers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_big_person"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#aaa"
+            android:text="Agrega maestros a tu lista"
+            android:textSize="18sp"
+            android:layout_marginBottom="8dp"/>
+
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addTeacherFloatingButton"
@@ -19,5 +45,19 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:contentDescription="@string/add_a_teacher_item"
-        android:src="@drawable/ic_person_add" />
+        android:src="@drawable/user_plus_solid"
+        app:backgroundTint="#222E50"
+        app:tint="#fff"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/add_a_teacher_item"
+        android:src="@drawable/ic_q"
+        app:backgroundTint="#989f02"
+        app:tint="#fff"/>
 </FrameLayout>

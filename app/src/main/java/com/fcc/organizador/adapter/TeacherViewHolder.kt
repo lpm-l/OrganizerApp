@@ -17,7 +17,7 @@ class TeacherViewHolder(view: View): ViewHolder(view) {
         binding.teacherName.text = teacher.name
         binding.teacherCubicle.text = teacher.cubicle
         binding.teacherContact.text = teacher.contact
-        binding.teacherDescription.text = teacher.description
+        //binding.teacherDescription.text = teacher.description
 
         binding.teacherCardItem.setOnClickListener { onClickListener(teacher) }
 

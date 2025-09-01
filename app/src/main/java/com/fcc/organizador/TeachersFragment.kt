@@ -2,12 +2,13 @@ package com.fcc.organizador
 
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.DisplayMetrics
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,8 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fcc.organizador.adapter.TeacherAdapter
 import com.fcc.organizador.adapter.TeacherViewHolder
+import com.fcc.organizador.databinding.DialogTeacherSelectedBinding
 import com.fcc.organizador.databinding.FragmentTeachersBinding
+import com.fcc.organizador.databinding.HelpScreenBinding
 import com.fcc.organizador.db.AppDatabaseHelper
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
 // TODO: Rename parameter arguments, choose names that match
@@ -101,7 +105,7 @@ class TeachersFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                Toast.makeText(requireContext(), direction.toString(), Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), direction.toString(), Toast.LENGTH_SHORT).show()
                 val position = viewHolder.adapterPosition
 
                 when (direction){
@@ -145,6 +149,11 @@ class TeachersFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerTeachers)
 
+        binding.btnHelp.setOnClickListener {
+            it.animate().rotationBy(360f).setDuration(300).start()
+            showHelpScreen()
+        }
+
     }
 
     override fun onCreateView(
@@ -170,17 +179,49 @@ class TeachersFragment : Fragment() {
         val decoration = DividerItemDecoration(requireContext(), llmanager.orientation)
         val recyclerView = binding.recyclerTeachers
 
+        checkIfEmpty()
+
         recyclerView.layoutManager = llmanager
         recyclerView.adapter = adapter
         binding.recyclerTeachers.addItemDecoration(decoration)
     }
 
+    private fun checkIfEmpty() {
+        if (teacherMutableList.isEmpty()) {
+            binding.recyclerTeachers.visibility = View.GONE
+            binding.emptyView.visibility = View.VISIBLE
+        } else {
+            binding.recyclerTeachers.visibility = View.VISIBLE
+            binding.emptyView.visibility = View.GONE
+        }
+    }
+
     private fun onItemSelected(teacher: Teacher){
-        Toast.makeText(requireContext(), teacher.position.toString(), Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), teacher.position.toString(), Toast.LENGTH_SHORT).show()
+
+        val dialogBinding = DialogTeacherSelectedBinding.inflate(layoutInflater)
+
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogBinding.root)
+            .setCancelable(true)
+            .create()
+
+        with(dialogBinding) {
+            textViewName.text = teacher.name
+            textViewCubicle.text = teacher.cubicle
+            textViewMail.text = teacher.contact
+            textViewDescription.text = teacher.description
+
+            btnClose.setOnClickListener { dialog.dismiss() }
+        }
+
+        dialog.show()
+
     }
 
     private fun onDeletedItem(position: Int){
         teacherMutableList.removeAt(position)
+        checkIfEmpty()
         db.deleteTeacher(position)
         adapter.notifyItemRemoved(position)
         reorderTeachersPositions()
@@ -195,15 +236,18 @@ class TeachersFragment : Fragment() {
 
     private fun addTeacher(teacher: Teacher) {
         teacherMutableList.add(teacher)
+        checkIfEmpty()
         db.insertTeacher(teacher)
+
         adapter.notifyItemInserted(teacherMutableList.size - 1)
         llmanager.scrollToPositionWithOffset(teacherMutableList.size - 1, 10)
 
-        Toast.makeText(requireContext(), "${teacher.name} agregado", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), "${teacher.name} agregado", Toast.LENGTH_SHORT).show()
     }
 
     private fun restoreTeacher(position: Int, teacher: Teacher){
         teacherMutableList.add(position, teacher)
+        checkIfEmpty()
         db.insertTeacher(teacher)
         adapter.notifyItemInserted(position)
 
@@ -238,7 +282,7 @@ class TeachersFragment : Fragment() {
     }
 
     private fun editFunction(position: Int){
-        Toast.makeText(requireContext(), "Edit Function", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), "Edit Function", Toast.LENGTH_SHORT).show()
         adapter.notifyItemChanged(position)
         binding.recyclerTeachers.post { //This is to fix when a teacher is restored because if the item is not reDrawn, the item will
             //be an empty card
@@ -264,7 +308,7 @@ class TeachersFragment : Fragment() {
         val position = teacherViewModel.getEditedPosition() //obtain the correct position
         //to edit
         teacherMutableList[position] = teacher
-        db.upgradeTeacher(teacher)
+        db.updateTeacher(teacher)
         adapter.notifyItemChanged(position)
         llmanager.scrollToPositionWithOffset(position, 10) //Correct position to see the restored teacher
     }
@@ -274,6 +318,39 @@ class TeachersFragment : Fragment() {
             db.reorderTeacher(teacher, index)
             teacher.position = index
         }
+    }
+
+    private fun showHelpScreen() {
+        val dialogBinding = HelpScreenBinding.inflate(layoutInflater)
+
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogBinding.root)
+            .setCancelable(true)
+            .create()
+
+        dialog.window?.apply {
+            val displayMetrics = DisplayMetrics()
+            windowManager.defaultDisplay.getMetrics(displayMetrics)
+            val width = (displayMetrics.widthPixels * 0.9).toInt()
+            setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+            // Opcional: hacer más alto si es necesario
+            val height = (displayMetrics.heightPixels * 0.8).toInt()
+            setLayout(width, height)
+
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+
+
+        dialogBinding.btnCloseHelp.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
+        val displayMetrics = resources.displayMetrics
+        val width = (displayMetrics.widthPixels * 0.9).toInt()
+        dialog.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
 

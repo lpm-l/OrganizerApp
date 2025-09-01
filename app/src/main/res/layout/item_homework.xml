@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/homeworkCardItem"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="6dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/editBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="#E9D985">
+
+            <ImageButton
+                android:id="@+id/icEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit"
+                android:background="#E9D985"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Editar"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:layout_toEndOf="@+id/icEdit"
+                android:layout_marginLeft="5dp"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/deleteBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="#e81123">
+
+            <ImageButton
+                android:id="@+id/icDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete"
+                android:background="#e81123"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Eliminar"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:layout_toStartOf="@+id/icDelete"
+                android:layout_marginEnd="5dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/foregroundView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#439A86"
+            android:visibility="visible"
+            android:padding="16dp">
+            <ImageView
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:id="@+id/homeworkImage"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_bell"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profesor"
+                android:textColor="@color/white"
+                android:id="@+id/homeworkTitle"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/homeworkImage"
+                android:layout_alignParentTop="true"
+
+                android:textSize="22sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CCO1-112"
+                android:textColor="@color/white"
+                android:id="@+id/homeworkDueTime"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/homeworkImage"
+                android:layout_below="@id/homeworkTitle"
+                android:textSize="16sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CCO1-112"
+                android:textColor="@color/white"
+                android:id="@+id/homeworkTimeText"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/homeworkImage"
+                android:layout_below="@id/homeworkDueTime"
+                android:textSize="16sp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</androidx.cardview.widget.CardView>

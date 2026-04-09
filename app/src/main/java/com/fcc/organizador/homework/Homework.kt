@@ -6,5 +6,6 @@ data class Homework (
     var description: String,
     var dueDateMillis: Long,
     var dateText: String,
-    var timeText: String
+    var timeText: String,
+    var statusCompleted: Boolean
 )

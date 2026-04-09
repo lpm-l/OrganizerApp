@@ -102,6 +102,15 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/toggleCompleted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Completado"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/button_state"/>
+
+    <Button
         android:id="@+id/btnClose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

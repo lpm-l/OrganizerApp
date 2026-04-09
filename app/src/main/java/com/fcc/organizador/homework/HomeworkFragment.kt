@@ -200,6 +200,20 @@ class HomeworkFragment : Fragment() {
             textViewHomeworkTimeText.text = homework.timeText
             textViewHomeworkDescription.text = homework.description
 
+            if (homework.statusCompleted) {
+                toggleCompleted.isEnabled = false
+                toggleCompleted.text = "Tarea Completada"
+            }
+
+            toggleCompleted.setOnClickListener {
+                homework.statusCompleted = true
+                db.updateHomework(homework)
+                adapter.notifyDataSetChanged() // To update the list if needed
+                toggleCompleted.isEnabled = false
+                toggleCompleted.text = "Tarea Completada"
+                Toast.makeText(requireContext(), "Tarea marcada como completada", Toast.LENGTH_SHORT).show()
+            }
+
             btnClose.setOnClickListener { dialog.dismiss() }
         }
 

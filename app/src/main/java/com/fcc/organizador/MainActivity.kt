@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val fragmentList = arrayListOf(TeachersFragment(), HomeworkFragment(), ScheduleFragment())
+        val fragmentList = arrayListOf(TeachersFragment(), HomeworkFragment(), ScheduleFragment(), DashboardFragment(),)
 
         binding.apply {
             viewPager.adapter = ViewPagerAdapter(fragmentList, this@MainActivity.supportFragmentManager, lifecycle)
@@ -52,6 +52,10 @@ class MainActivity : AppCompatActivity() {
                     }
                     2 -> {
                         tab.text = "Horario"
+                        tab.icon = ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_time)
+                    }
+                    3 -> {
+                        tab.text = "Logros"
                         tab.icon = ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_time)
                     }
                 }

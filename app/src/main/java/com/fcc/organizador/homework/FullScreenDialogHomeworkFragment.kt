@@ -128,7 +128,7 @@ class FullScreenDialogHomeworkFragment: DialogFragment() {
 
         // the id value is provisional if the homework is being created
         val idValue = if(editing && homeworkViewModel.getEditingHomework()!= null) homeworkViewModel.getEditingHomework()!!.id else 0
-        val homework = Homework(idValue, title, description, dueTimeMillis, dateText, timeText)
+        val homework = Homework(idValue, title, description, dueTimeMillis, dateText, timeText, false)
 
         if (!editing) {
             homeworkViewModel.setNewHomework(homework)

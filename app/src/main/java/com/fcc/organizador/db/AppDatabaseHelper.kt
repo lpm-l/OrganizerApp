@@ -15,7 +15,7 @@ class AppDatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NA
 
     companion object{
         private const val DATABASE_NAME = "organizer_app.db"
-        private const val DATABASE_VERSION = 6
+        private const val DATABASE_VERSION = 7
 
 
         //TABLE: TEACHER
@@ -43,6 +43,7 @@ class AppDatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NA
         private const val COL_HOMEWORK_DUE_DATE_MILLIS = "due_date_millis"
         private const val COL_HOMEWORK_DATE_TEXT = "date_text"
         private const val COL_HOMEWORK_TIME_TEXT = "time_text"
+        private const val COL_HOMEWORK_STATUS_COMPLETED = "status_completed"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -65,7 +66,7 @@ class AppDatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NA
         db?.execSQL(createTableQuery)
 
         //TABLE HOMEWORK
-        createTableQuery = "CREATE TABLE $TABLE_HOMEWORK ($COL_HOMEWORK_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, $COL_HOMEWORK_TITLE TEXT UNIQUE NOT NULL, $COL_HOMEWORK_DESCRIPTION TEXT NOT NULL, $COL_HOMEWORK_DUE_DATE_MILLIS INTEGER NOT NULL, $COL_HOMEWORK_DATE_TEXT TEXT NOT NULL, $COL_HOMEWORK_TIME_TEXT TEXT NOT NULL )"
+        createTableQuery = "CREATE TABLE $TABLE_HOMEWORK ($COL_HOMEWORK_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, $COL_HOMEWORK_TITLE TEXT UNIQUE NOT NULL, $COL_HOMEWORK_DESCRIPTION TEXT NOT NULL, $COL_HOMEWORK_DUE_DATE_MILLIS INTEGER NOT NULL, $COL_HOMEWORK_DATE_TEXT TEXT NOT NULL, $COL_HOMEWORK_TIME_TEXT TEXT NOT NULL, $COL_HOMEWORK_STATUS_COMPLETED INTEGER NOT NULL DEFAULT 0 )"
         db?.execSQL(createTableQuery)
 
     }
@@ -212,6 +213,7 @@ class AppDatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NA
             put(COL_HOMEWORK_DUE_DATE_MILLIS, homework.dueDateMillis)
             put(COL_HOMEWORK_DATE_TEXT, homework.dateText)
             put(COL_HOMEWORK_TIME_TEXT, homework.timeText)
+            put(COL_HOMEWORK_STATUS_COMPLETED, if (homework.statusCompleted) 1 else 0)
         }
         val id = db.insert(TABLE_HOMEWORK, null, values).toInt() //return the id of the inserted homework
         db.close()
@@ -232,8 +234,9 @@ class AppDatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NA
                 val dueDateMillis = getLong(getColumnIndexOrThrow(COL_HOMEWORK_DUE_DATE_MILLIS))
                 val dateText = getString(getColumnIndexOrThrow(COL_HOMEWORK_DATE_TEXT))
                 val timeText = getString(getColumnIndexOrThrow(COL_HOMEWORK_TIME_TEXT))
+                val statusCompleted = getInt(getColumnIndexOrThrow(COL_HOMEWORK_STATUS_COMPLETED)) == 1
 
-                homeworkList.add(Homework(id, title, description, dueDateMillis, dateText, timeText))
+                homeworkList.add(Homework(id, title, description, dueDateMillis, dateText, timeText, statusCompleted))
             }
             close()
         }
@@ -257,6 +260,7 @@ class AppDatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NA
             put(COL_HOMEWORK_DUE_DATE_MILLIS, homework.dueDateMillis)
             put(COL_HOMEWORK_DATE_TEXT, homework.dateText)
             put(COL_HOMEWORK_TIME_TEXT, homework.timeText)
+            put(COL_HOMEWORK_STATUS_COMPLETED, if (homework.statusCompleted) 1 else 0)
         }
 
         db.update(TABLE_HOMEWORK, values, "$COL_HOMEWORK_ID = ?", arrayOf(homework.id.toString()))
